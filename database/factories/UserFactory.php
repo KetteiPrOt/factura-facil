@@ -24,10 +24,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'ruc' => $this->randomNumber(13),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'matrix_address' => fake()->sentence(),
             'remember_token' => Str::random(10),
         ];
     }
@@ -40,5 +42,15 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * Generates a number of any length using Faker's generator
+     */
+    public function randomNumber(int $digits): string
+    {
+        $number = '';
+        for($i = 0; $i < $digits; $i++) $number .= fake()->randomDigit();
+        return $number;
     }
 }

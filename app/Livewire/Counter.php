@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Counter extends Component
@@ -18,6 +19,7 @@ class Counter extends Component
         $this->count--;
     }
 
+    #[Title('Counter')]
     public function render()
     {
         return view('livewire.counter');
