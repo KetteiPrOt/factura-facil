@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Products\Product;
 use App\Models\User;
 use Database\Seeders\Products\IceTypeSeeder;
-use Database\Seeders\Products\ProductSeeder;
 use Database\Seeders\Products\VatRateSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,7 +32,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         if ($this->fake) {
-            Product::factory()->count(10)->create();
+            Product::factory()->count(100)->create();
         }
     }
 }
