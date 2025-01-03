@@ -10,11 +10,14 @@
                     <x-input-label for="searchProductInput">
                         Productos
                     </x-input-label>
-                    <a href="{{route('products.create')}}" wire:navigate>
-                        <x-secondary-button>
-                            Agregar
-                        </x-secondary-button>
-                    </a>
+                    <x-secondary-button
+                        x-data x-on:click="$dispatch('open-modal', 'create-product')"
+                    >
+                        Agregar
+                    </x-secondary-button>
+                    <x-modal name="create-product" focusable>
+                        <livewire:products.product-create @product-created="$refresh" />
+                    </x-modal>
                 </div>
                 <x-text-input
                     wire:model.live="search"
@@ -26,9 +29,15 @@
                     @forelse($products as $product)
                         <x-table.simple.tr>
                             <x-table.simple.td>
-                                <a href="{{route('products.show', $product->id)}}" class="inline-block w-full" wire:navigate>
+                                <span
+                                    x-on:click="
+                                        $dispatch('open-modal', 'edit-product');
+                                        $dispatch('load-product', {product_id: {{$product->id}}})
+                                    "
+                                    class="inline-block w-full"
+                                >
                                     {{$product->name}}
-                                </a>
+                                </span>
                             </x-table.simple.td>
                         </x-table.simple.tr>
                     @empty
@@ -40,6 +49,9 @@
                     @endforelse
                 </x-table.simple>
                 <x-pagination.simple :paginator="$products" />
+                <x-modal name="edit-product" focusable>
+                    <livewire:products.product-edit @product-edited="$refresh" @product-deleted="$refresh" />
+                </x-modal>
             </div>
         </div>
     </div>

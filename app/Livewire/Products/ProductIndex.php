@@ -8,7 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class ProductIndex extends Component
 {
     use WithPagination;
 
@@ -17,7 +17,7 @@ class Index extends Component
     #[Title('Tus Productos')]
     public function render()
     {
-        return view('livewire.products.index', [
+        return view('livewire.products.product-index', [
             'products' => $this->query()
         ]);
     }
@@ -27,6 +27,7 @@ class Index extends Component
         $user = Auth::user();
         return Product::where('name', 'LIKE', '%'.$this->search.'%')
             ->where('user_id', $user->id)
+            ->orderBy('name')
             ->paginate(15, pageName: 'products_page');
     }
-} 
+}

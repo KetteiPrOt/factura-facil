@@ -9,7 +9,7 @@ class UpdateForm extends Form
 {
     use Rules;
 
-    public Product $product;
+    public ?Product $product;
 
     public function setProduct($product)
     {
