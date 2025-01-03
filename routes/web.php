@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Counter;
+use App\Livewire\Persons\PersonIndex;
 use App\Livewire\Products\ProductIndex;
 
 Route::get('/', fn() => redirect()->route('login'));
@@ -16,6 +16,5 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::get('/counter', Counter::class)->name('counter');
-
 Route::middleware('auth')->get('/productos', ProductIndex::class)->name('products.index');
+Route::middleware('auth')->get('/personas', PersonIndex::class)->name('persons.index');

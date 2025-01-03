@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Forms\Products;
+namespace App\Livewire\Forms\Persons;
 
-use App\Models\Products\Product;
+use App\Models\Persons\Person;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
 
@@ -16,6 +16,6 @@ class StoreForm extends Form
         $this->validate();
         $data = $this->all();
         $data['user_id'] = Auth::user()->id;
-        return Product::create($data);
+        return Person::create($data);
     }
 }

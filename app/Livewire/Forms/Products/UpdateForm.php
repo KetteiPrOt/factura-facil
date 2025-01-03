@@ -25,9 +25,9 @@ class UpdateForm extends Form
 
     public function update()
     {
+        $this->operation = 'update';
         $this->validate();
         $this->product->update($this->all());
-        return $this->product;
     }
 }
 

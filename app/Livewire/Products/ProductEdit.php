@@ -5,6 +5,8 @@ namespace App\Livewire\Products;
 use App\Livewire\Forms\Products\UpdateForm;
 use App\Models\Products\Product;
 use App\Models\Products\VatRate;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -17,7 +19,11 @@ class ProductEdit extends Component
     {
         $this->form->reset();
         $product = Product::find($product_id);
-        if($product) $this->form->setProduct($product);
+        if($product){
+            $user = User::find(Auth::user()->id);
+            if($user->belongsToMe($product, 'products'))
+                $this->form->setProduct($product);
+        }
     }
 
     public function render()
@@ -30,15 +36,13 @@ class ProductEdit extends Component
     public function save()
     {
         $this->form->update();
-        $this->form->reset();
         $this->dispatch('close');
         $this->dispatch('product-edited');
     }
 
     public function destroy()
     {
-        $this->form->product->delete();
-        $this->form->reset();
+        $this->form->product?->delete();
         $this->dispatch('close');
         $this->dispatch('product-deleted');
     }

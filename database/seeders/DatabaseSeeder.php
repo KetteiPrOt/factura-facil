@@ -24,8 +24,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Test User 1',
+            'email' => 'test_1@example.com',
+        ]);
+
+        User::factory()->create([
+            'name' => 'Test User 2',
+            'email' => 'test_2@example.com',
         ]);
 
         $this->call([
@@ -36,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
         if ($this->fake) {
             Product::factory()->count(100)->create();
-            Person::factory()->count(10)->create();
+            Person::factory()->count(200)->create();
         }
     }
 }

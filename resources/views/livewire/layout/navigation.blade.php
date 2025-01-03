@@ -34,12 +34,12 @@ new class extends Component
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('counter')" :active="request()->routeIs('counter')" wire:navigate>
-                        Counter
-                    </x-nav-link>
-
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')" wire:navigate>
                         Productos
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('persons.index')" :active="request()->routeIs('persons.index')" wire:navigate>
+                        Clientes
                     </x-nav-link>
                 </div>
             </div>
