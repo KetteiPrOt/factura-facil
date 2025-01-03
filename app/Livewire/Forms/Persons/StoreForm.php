@@ -16,6 +16,6 @@ class StoreForm extends Form
         $this->validate();
         $data = $this->all();
         $data['user_id'] = Auth::user()->id;
-        return Person::create($data);
+        Person::create($data);
     }
 }

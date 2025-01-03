@@ -22,7 +22,7 @@ class ProductIndex extends Component
         ]);
     }
 
-    public function query()
+    private function query()
     {
         $user = Auth::user();
         return Product::where('name', 'LIKE', '%'.$this->search.'%')

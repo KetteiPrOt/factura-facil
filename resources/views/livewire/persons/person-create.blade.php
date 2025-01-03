@@ -26,7 +26,7 @@
             maxlength="255"
             class="w-full"
         />
-        @error('form.name')
+        @error('form.social_reason')
             <p class="text-red-400">{{ $message }}</p>
         @enderror
     </div>

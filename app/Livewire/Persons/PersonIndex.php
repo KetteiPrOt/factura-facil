@@ -22,7 +22,7 @@ class PersonIndex extends Component
         ]);
     }
 
-    public function query()
+    private function query()
     {
         $user = Auth::user();
         return Person::where('social_reason', 'LIKE', '%'.$this->search.'%')

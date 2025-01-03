@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Establishments\EstablishmentIndex;
+use App\Livewire\Establishments\EstablishmentShow;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Persons\PersonIndex;
 use App\Livewire\Products\ProductIndex;
@@ -18,3 +20,5 @@ require __DIR__.'/auth.php';
 
 Route::middleware('auth')->get('/productos', ProductIndex::class)->name('products.index');
 Route::middleware('auth')->get('/personas', PersonIndex::class)->name('persons.index');
+Route::middleware('auth')->get('/establecimientos', EstablishmentIndex::class)->name('establishments.index');
+Route::middleware('auth')->get('/establecimientos/{establishment}', EstablishmentShow::class)->name('establishments.show');

@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\Persons\Person;
 use App\Models\Products\Product;
 use App\Models\User;
+use Database\Seeders\Establishments\EstablishmentSeeder;
 use Database\Seeders\Persons\IdentificationTypeSeeder;
 use Database\Seeders\Products\IceTypeSeeder;
 use Database\Seeders\Products\VatRateSeeder;
+use Database\Seeders\Receipts\ReceiptTypeSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +38,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             VatRateSeeder::class,
             IceTypeSeeder::class,
-            IdentificationTypeSeeder::class
+            IdentificationTypeSeeder::class,
+            ReceiptTypeSeeder::class,
+            EstablishmentSeeder::class
         ]);
 
         if ($this->fake) {
