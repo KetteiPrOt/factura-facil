@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms\Establishments;
 
 use App\Models\Establishments\Establishment;
-use Livewire\Form;
+use App\Livewire\Forms\Form;
 
 class UpdateForm extends Form
 {
@@ -15,7 +15,7 @@ class UpdateForm extends Form
     {
         $this->establishment = $establishment;
         $this->fill([
-            'code' => $establishment->code,
+            'code' => intval($establishment->code),
             'commercial_name' => $establishment->commercial_name,
             'address' => $establishment->address,
         ]);
@@ -25,6 +25,8 @@ class UpdateForm extends Form
     {
         $this->operation = 'update';
         $this->validate();
-        $this->establishment->update($this->all());
+        $data = $this->all();
+        $data['code'] = $this->numberToChar($data['code']);
+        $this->establishment->update($data);
     }
 }

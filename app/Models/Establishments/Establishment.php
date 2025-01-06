@@ -2,6 +2,7 @@
 
 namespace App\Models\Establishments;
 
+use App\Models\ModelBasics;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Establishment extends Model
 {
-    use HasFactory;
+    use HasFactory, ModelBasics;
 
     protected $fillable = [
         'code',
