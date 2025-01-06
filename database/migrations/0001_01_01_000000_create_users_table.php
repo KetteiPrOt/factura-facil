@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('matrix_address', 255);
             $table->rememberToken();
+            $table->string('logo', 255)->nullable()->default(null);
             $table->timestamps();
         });
 

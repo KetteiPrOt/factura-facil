@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Livewire\Establishments\EstablishmentIndex;
 use App\Livewire\Establishments\EstablishmentShow;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth')->get('/productos', ProductIndex::class)->name('product
 Route::middleware('auth')->get('/personas', PersonIndex::class)->name('persons.index');
 Route::middleware('auth')->get('/establecimientos', EstablishmentIndex::class)->name('establishments.index');
 Route::middleware('auth')->get('/establecimientos/{establishment}', EstablishmentShow::class)->name('establishments.show');
+Route::middleware('auth')->get('/logo', [ProfileController::class, 'logo'])->name('profile.logo');

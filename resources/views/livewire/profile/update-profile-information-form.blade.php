@@ -3,21 +3,37 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Rules\String\NumericDigits;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Locked;
+use Illuminate\Support\Facades\Storage;
 
 new class extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
+    public string $ruc = '';
+    public string $matrix_address = '';
+    public $logo;
+
+    #[Locked]
+    public ?string $current_logo;
 
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = Auth::user();
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->ruc = $user->ruc;
+        $this->matrix_address = $user->matrix_address;
+        $this->current_logo = $user->logo;
     }
 
     /**
@@ -30,7 +46,22 @@ new class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'ruc' => [
+                'bail', 'required', 'string', 'size:13', new NumericDigits,
+                Rule::unique('users', 'ruc')->ignore(Auth::user()->id)
+            ],
+            'matrix_address' => 'required|string|max:255',
+            'logo' => 'nullable|image|max:1024|dimensions: ratio=1/1'
         ]);
+
+        if ($this->logo) {
+            if(isset($this->current_logo)) Storage::delete('logos/'.$this->current_logo);
+            $this->logo->store(path: 'logos');
+            $validated['logo'] = $this->logo->hashName();
+            $this->current_logo = $validated['logo'];
+        } else {
+            unset($validated['logo']); // prevents set null
+        }
 
         $user->fill($validated);
 
@@ -100,6 +131,30 @@ new class extends Component
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
+                </div>
+            @endif
+        </div>
+
+        <div>
+            <x-input-label for="ruc" :value="'RUC'" />
+            <x-text-input wire:model="ruc" id="ruc" name="ruc" type="text" class="mt-1 block w-full" required />
+            <x-input-error class="mt-2" :messages="$errors->get('ruc')" />
+        </div>
+
+        <div>
+            <x-input-label for="matrix_address" :value="'Dirección matriz'" />
+            <x-text-input wire:model="matrix_address" id="matrix_address" name="matrix_address" type="text" class="mt-1 block w-full" required />
+            <x-input-error class="mt-2" :messages="$errors->get('matrix_address')" />
+        </div>
+
+        <div>
+            <x-input-label for="logo" :value="'Logo'" />
+            <x-text-input wire:model="logo" id="logo" name="logo" type="file" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('logo')" />
+
+            @if($current_logo)
+                <div class="my-2 aspect-square flex justify-center sm:block sm:w-1/2">
+                    <img src="{{route('profile.logo', ['img' => $current_logo])}}" alt="Logo" class="w-full h-full border rounded" />
                 </div>
             @endif
         </div>
