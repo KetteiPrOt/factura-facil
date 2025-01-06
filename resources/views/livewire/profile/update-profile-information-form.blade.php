@@ -51,11 +51,12 @@ new class extends Component
                 Rule::unique('users', 'ruc')->ignore(Auth::user()->id)
             ],
             'matrix_address' => 'required|string|max:255',
-            'logo' => 'nullable|image|max:1024|dimensions: ratio=1/1'
+            'logo' => 'nullable|image|max:1024|dimensions:ratio=1/1'
         ]);
 
         if ($this->logo) {
-            if(isset($this->current_logo)) Storage::delete('logos/'.$this->current_logo);
+            if(isset($this->current_logo))
+                Storage::delete('logos/'.$this->current_logo);
             $this->logo->store(path: 'logos');
             $validated['logo'] = $this->logo->hashName();
             $this->current_logo = $validated['logo'];

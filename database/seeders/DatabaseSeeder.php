@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Certificate;
 use App\Models\Persons\Person;
 use App\Models\Products\Product;
 use App\Models\User;
@@ -25,15 +26,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user_1 = User::factory()->create([
             'name' => 'Test User 1',
             'email' => 'test_1@example.com',
         ]);
+        Certificate::create(['user_id' => $user_1->id]);
 
-        User::factory()->create([
+        $user_2 = User::factory()->create([
             'name' => 'Test User 2',
             'email' => 'test_2@example.com',
         ]);
+        Certificate::create(['user_id' => $user_2->id]);
 
         $this->call([
             VatRateSeeder::class,
