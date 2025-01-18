@@ -77,7 +77,6 @@ class InvoiceCreate extends Component
         try {
             $client = new SoapClient('https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl');
             $response = $client->validarComprobante(['xml' => $signed]);
-            dump($response);
         } catch(Exception $e) {
             $response = null;
         }

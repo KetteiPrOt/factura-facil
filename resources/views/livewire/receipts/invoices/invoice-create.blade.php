@@ -412,6 +412,10 @@
                         <div wire:loading>
                             <x-icon.loading class="w-5 h-5" />
                         </div>
+
+                        <x-action-message class="ms-3" on="invoice-created">
+                            Guardado!
+                        </x-action-message>
                     </div>
                 </section>
             </div>
