@@ -41,6 +41,10 @@ new class extends Component
                     <x-nav-link :href="route('establishments.index')" :active="request()->routeIs('establishments.index')" wire:navigate>
                         Establecimientos
                     </x-nav-link>
+
+                    <x-nav-link :href="route('invoices.create')" :active="request()->routeIs('invoices.create')" wire:navigate>
+                        Facturar
+                    </x-nav-link>
                 </div>
             </div>
 

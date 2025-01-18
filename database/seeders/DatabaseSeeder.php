@@ -10,6 +10,7 @@ use Database\Seeders\Establishments\EstablishmentSeeder;
 use Database\Seeders\Persons\IdentificationTypeSeeder;
 use Database\Seeders\Products\IceTypeSeeder;
 use Database\Seeders\Products\VatRateSeeder;
+use Database\Seeders\Receipts\PayMethodSeeder;
 use Database\Seeders\Receipts\ReceiptTypeSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -43,7 +44,8 @@ class DatabaseSeeder extends Seeder
             IceTypeSeeder::class,
             IdentificationTypeSeeder::class,
             ReceiptTypeSeeder::class,
-            EstablishmentSeeder::class
+            EstablishmentSeeder::class,
+            PayMethodSeeder::class
         ]);
 
         if ($this->fake) {
