@@ -2,15 +2,20 @@
 
 namespace App\Livewire\Receipts\Invoices;
 
+use App\Jobs\Invoices\RequestAuthorization;
 use App\Livewire\Forms\Invoices\StoreForm;
 use App\Models\Persons\Person;
 use App\Models\Products\Product;
+use App\Models\Receipts\Receipt;
+use App\Models\Receipts\ReceiptType;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use SoapClient;
 
 class InvoiceCreate extends Component
 {
@@ -25,6 +30,8 @@ class InvoiceCreate extends Component
     public function mount()
     {
         $this->form->issuance_date = date('Y-m-d');
+        if( ! Auth::user()->certificate->uploaded )
+            $this->redirect('profile', navigate: true);
     }
 
     #[Title('Facturar')]
@@ -38,10 +45,56 @@ class InvoiceCreate extends Component
     public function save()
     {
         $this->form->validate();
-        $data = $this->form->all();
-        dump($data);
-        $this->form->reset();
+        $validated = $this->form->all();
+        $user = Auth::user();
+        $builder = new Builder();
+        $raw = $builder->build($validated, $user);
+        $signer = new Signer();
+        $signed = $signer->sign($raw, $user, config('app.openssl-cli', 'openssl'));
+
+        $status = $this->issue($signed);
+
+        $invoice = Receipt::create([
+            'access_key' => $builder->access_key,
+            'issuance_date' => $validated['issuance_date'],
+            'number' => $builder->establishment->code
+                . '-' . $builder->issuancePoint->code
+                . '-' . $builder->sequential, // 001-001-000000001
+            'status' => $status,
+            'content' => $signed,
+            'user_id' => $user->id,
+            'receipt_type_id' => ReceiptType::where('name', 'FACTURA')->first()->id
+        ]);
+
+        RequestAuthorization::dispatch($invoice);
+
+        $this->form->reset('products');
         $this->dispatch('invoice-created');
+    }
+
+    private function issue($signed)
+    {
+        try {
+            $client = new SoapClient('https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl');
+            $response = $client->validarComprobante(['xml' => $signed]);
+            dump($response);
+        } catch(Exception $e) {
+            $response = null;
+        }
+
+        $status = 'No emitida.';
+
+        if(isset($response?->RespuestaRecepcionComprobante)){
+            if(isset($response?->RespuestaRecepcionComprobante?->estado)){
+                $status =
+                    $response?->RespuestaRecepcionComprobante?->estado
+                    == 'RECIBIDA'
+                    ? 'Emitida.'
+                    : 'No emitida.';
+            }
+        }
+
+        return $status;
     }
 
     public function removeProduct($key)

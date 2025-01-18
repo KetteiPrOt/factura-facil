@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Establishments\Establishment;
 use App\Models\Persons\Person;
 use App\Models\Products\Product;
+use App\Models\Receipts\Receipt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -73,5 +74,10 @@ class User extends Authenticatable
     public function certificate(): HasOne
     {
         return $this->hasOne(Certificate::class);
+    }
+
+    public function receipts(): HasMany
+    {
+        return $this->hasMany(Receipt::class);
     }
 }

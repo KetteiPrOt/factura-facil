@@ -3,7 +3,7 @@
 </x-slot>
 
 <div class="py-12">
-    <form wire:submit="save" x-data="InvoiceComponent" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <form wire:submit="save" x-data="InvoiceComponent" x-on:invoice-created.window="reset()" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
@@ -193,7 +193,7 @@
                                     <x-danger-button 
                                         type="button" 
                                         x-on:click.prevent="
-                                            clearProduct({{$key}}, {{$product->vatRate->percentaje}});
+                                            clearProduct({{$key}}, {{$product->vatRate->code}});
                                             $wire.removeProduct({{$key}})
                                         "
                                     >
@@ -228,9 +228,9 @@
                                     IVA
                                 </x-text.label>
                                 <x-text.p class="md:hidden">
-                                    {{$product->vatRate->percentaje}}%
+                                    {{$product->vatRate->name}}
                                 </x-text.p>
-                                <span class="hidden md:inline">{{$product->vatRate->percentaje}}%</span>
+                                <span class="hidden md:inline">{{$product->vatRate->name}}</span>
                             </td>
                             <td class="row-start-5 row-end-6 col-span-2 inline-block md:table-cell whitespace-nowrap px-6 md:py-4">
                                 <x-input-label class="md:hidden" for="productDiscountInput{{$key}}" value="Descuento" />
@@ -249,7 +249,7 @@
                                     x-text="productTotal(
                                         {{$key}},
                                         $wire.form.products[{{$key}}], 
-                                        {{$product->vatRate->percentaje}}
+                                        {{$product->vatRate->code}}
                                     )"
                                     class="max-w-full whitespace-break-spaces"
                                 ></x-text.p>
@@ -258,7 +258,7 @@
                                 <x-danger-button 
                                     type="button" 
                                     x-on:click.prevent="
-                                        clearProduct({{$key}}, {{$product->vatRate->percentaje}});
+                                        clearProduct({{$key}}, {{$product->vatRate->code}});
                                         $wire.removeProduct({{$key}})
                                     "
                                 >
@@ -323,6 +323,30 @@
                                 </x-table.simple.td>
                                 <x-table.simple.td>
                                     <span x-text="sum('subtotal_5')"></span>
+                                </x-table.simple.td>
+                            </x-table.simple.tr>
+                            <x-table.simple.tr>
+                                <x-table.simple.td>
+                                    Subtotal 0%
+                                </x-table.simple.td>
+                                <x-table.simple.td>
+                                    <span x-text="sum('subtotal_0')"></span>
+                                </x-table.simple.td>
+                            </x-table.simple.tr>
+                            <x-table.simple.tr>
+                                <x-table.simple.td>
+                                    Subtotal no objeto de IVA
+                                </x-table.simple.td>
+                                <x-table.simple.td>
+                                    <span x-text="sum('subtotal_no_vat')"></span>
+                                </x-table.simple.td>
+                            </x-table.simple.tr>
+                            <x-table.simple.tr>
+                                <x-table.simple.td>
+                                    Subtotal exento de IVA
+                                </x-table.simple.td>
+                                <x-table.simple.td>
+                                    <span x-text="sum('subtotal_vat_exempt')"></span>
                                 </x-table.simple.td>
                             </x-table.simple.tr>
                             <x-table.simple.tr>

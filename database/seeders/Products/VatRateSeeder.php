@@ -14,7 +14,9 @@ class VatRateSeeder extends Seeder
     private array $vat_rates = [
         ['0', 0, '0%'],
         ['4', 15, '15%'],
-        ['5', 5, '5%']
+        ['5', 5, '5%'],
+        ['6', 0, 'No objeto de IVA'],
+        ['7', 0, 'Exento de IVA']
     ];
 
     /**

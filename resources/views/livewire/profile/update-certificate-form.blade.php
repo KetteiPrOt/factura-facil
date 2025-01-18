@@ -57,7 +57,7 @@ new class extends Component
             'password' => 'required|string|max:255'
         ]);
 
-        $this->certificate->storeAs('certificates/', $user->id);
+        $this->certificate->storeAs("certificates/$user->id.d/", $user->id);
 
         $result = $this->unlock($validated['password'], $user);
 
@@ -72,12 +72,13 @@ new class extends Component
         $user_id = $user->id;
         $password_esc = escapeshellarg($password);
         $signature = shell_exec(
-            "$this->openssl pkcs12 -in $this->storage_path/certificates/$user_id -nodes -passin pass:$password_esc"
+            "$this->openssl pkcs12 -in $this->storage_path/certificates/$user_id.d/$user_id -nodes -passin pass:$password_esc"
         );
         if($signature){
-            $file = "$this->storage_path/certificates/$user_id.pem";
+            $file = "$this->storage_path/certificates/$user_id.d/$user_id.pem";
             File::put($file, $signature);
             $owner = shell_exec("$this->openssl x509 -in $file -noout -subject") ?? 'Desconocido.';
+            $owner = $this->extractOwner($owner);
             $effective_date = $this->formatDate(
                 shell_exec("$this->openssl x509 -in $file -noout -enddate")
             );
@@ -89,7 +90,7 @@ new class extends Component
             $this->owner = $owner;
             $this->status = 'Guardado.';
         } else {
-            Storage::delete('certificate/'.$user_id);
+            Storage::delete("certificate/$user_id.d/$user_id");
             $user->certificate->update([
                 'uploaded' => false, 'effective_date' => null, 'owner' => 'Desconocido.', 'password' => null
             ]);
@@ -104,6 +105,14 @@ new class extends Component
         if(is_null($date)) return null;
         $date = Str::betweenFirst($date, 'notAfter=', '\n');
         return (new DateTime($date))->format('Y-m-d');
+    }
+
+    private function extractOwner(string $raw): string
+    {
+        $issuer = str_replace("subject= /", '', $raw);
+        $issuer = array_reverse(Str::of($issuer)->explode('/')->toArray());
+        $issuer = implode(',', $issuer);
+        return $issuer;
     }
 }; ?>
 

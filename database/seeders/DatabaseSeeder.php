@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $user_1 = User::factory()->create([
             'name' => 'Test User 1',
             'email' => 'test_1@example.com',
+            'ruc' => '1717355448001'
         ]);
         Certificate::create(['user_id' => $user_1->id]);
 

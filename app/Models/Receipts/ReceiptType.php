@@ -17,8 +17,8 @@ class ReceiptType extends Model
         return $this->hasMany(Sequential::class);
     }
 
-    // public function receipts(): HasMany
-    // {
-    //     return $this->hasMany(Receipt::class);
-    // }
+    public function receipts(): HasMany
+    {
+        return $this->hasMany(Receipt::class);
+    }
 }

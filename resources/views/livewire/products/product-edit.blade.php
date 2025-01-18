@@ -80,7 +80,7 @@
             <option>Seleccione</option>
             @foreach($vatRates as $vatRate)
                 <option value="{{$vatRate->id}}">
-                    {{$vatRate->percentaje}}%
+                    {{$vatRate->name}}
                 </option>
             @endforeach
         </x-select-input>
