@@ -3,8 +3,8 @@
 </x-slot>
 
 <div class="py-12">
-    <form wire:submit="save" x-data="InvoiceComponent" x-on:invoice-created.window="reset()" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <form wire:submit="save" x-data="InvoiceComponent" x-on:invoice-created.window="reset()" class="md:grid md:grid-cols-2 md:gap-3 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="md:col-span-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
                     <header>
@@ -47,7 +47,7 @@
                 </section>
             </div>
         </div>
-        <div class="mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mt-6 md:col-span-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
                     <header>
@@ -143,7 +143,7 @@
                 </section>
             </div>
         </div>
-        <div class="mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="md:col-span-2 mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
                     <header>
@@ -290,7 +290,7 @@
                 </section>
             </div>
         </div>
-        <div class="mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="md:col-start-2 md:col-end-3 mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
                     <header>
@@ -299,7 +299,7 @@
                         </h2>
                     </header>
 
-                    <div class="max-w-sm">
+                    <div>
                         <x-table.simple>
                             <x-table.simple.tr>
                                 <x-table.simple.td>
@@ -378,7 +378,7 @@
                 </section>
             </div>
         </div>
-        <div class="mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="md:self-start md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-2 mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <section class="space-y-6">
                     <header>
