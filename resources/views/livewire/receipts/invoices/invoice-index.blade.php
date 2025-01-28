@@ -94,7 +94,9 @@
                                 {{date('d/m/Y', strtotime($receipt->issuance_date))}}
                             </x-table.simple.td>
                             <x-table.simple.td>
-                                {{$receipt->number}}
+                                <a href="{{route('invoices.download', $receipt->id)}}">
+                                    {{$receipt->number}}
+                                </a>
                             </x-table.simple.td>
                             <x-table.simple.td>
                                 {{$receipt->status}}

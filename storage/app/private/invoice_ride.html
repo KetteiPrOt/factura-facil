@@ -1,0 +1,251 @@
+<style>
+    /* General */
+    :root {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    * { font-family: sans-serif; }
+
+    /* Elements */
+    .logo, .no-logo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .logo { border-radius: 10px; }
+
+    .no-logo {
+        font-size: 30px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    /* Layout */
+    .section1 { width: 355px; }
+
+    .section2 {
+        position: absolute;
+        left: 370px; top: 0;
+        width: 370px;
+        height: 400px;
+        padding: 0 10px;
+        padding-top: 10px;
+    }
+
+    .section3 {
+        margin-top: 30px;
+        padding: 10px;
+    }
+
+    .details {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .section1 .user-data {
+        height: 200px;
+        padding: 0 10px;
+        margin-top: 10px;
+    }
+
+    .section1 .user-data p { font-size: 10px; }
+
+    .section2 p { margin: 0, 20px; }
+
+    .section3 .client-data { width: 100%; }
+
+    .section3 td { font-size: 10px; }
+
+    .details th,
+    .details td { padding: 0 3px; }
+
+    .details th,
+    .details td,
+    .section5 th,
+    .section5 td {
+        border: 1px solid black;
+        font-size: 10px;
+    }
+
+    .section5 table {
+        position: absolute;
+        left: 532px;
+        border-collapse: collapse;
+    }
+
+    .section5 td { width: 75px; }
+
+    .section5 .label { width: 150px; }
+
+    .section6 { width: 510px; }
+
+    .additional-info {
+        width: 500px;
+        font-size: 10px;
+    }
+
+    .additional-info .header {
+        text-align: center;
+        border-bottom: 1px solid black;
+    }
+
+    .additional-info .header,
+    .additional-info .content {
+        padding: 5px;
+    }
+
+    .paymethods {
+        font-size: 10px;
+        width: 502px;
+        max-width: 503px;
+        border-collapse: collapse;
+        margin-top: 5px;
+    }
+
+    .paymethods td,
+    .paymethods th {
+        border: 1px solid black;
+    }
+
+    /* Utilities */
+    .font-sm { font-size: 10px; }
+
+    .font-md { font-size: 20px; }
+
+    .float-right { float: right; }
+
+    .float-left { float: left; }
+
+    .inline { display: inline; }
+
+    .inline-block { display: inline-block; }
+
+    .w-1\/2 { width: 50%; }
+
+    .border { border: 1px solid black; }
+
+    .rounded { border-radius: 10px; }
+</style>
+<div class="section1">
+    {{logo}}
+
+    <div class="user-data border rounded">
+        <p>{{user_name}}</p>
+        <p>Dirección Matriz:</p>
+        <p>{{matrix_address}}</p>
+        <p>Dirección Sucursal:</p>
+        <p>{{establishment_address}}</p>
+        <p>Obligado a llevar contabilidad: SI</p>
+    </div>
+</div>
+<div class="section2 border rounded">
+    <p class="font-md">RUC:&nbsp;&nbsp;&nbsp;&nbsp;{{user_ruc}}</p>
+    <p class="font-md">Factura</p>
+    <p class="font-sm">No. {{receipt_sequential}}</p>
+    <p class="font-sm">CLAVE DE ACCESO</p>
+    <p class="font-sm">{{access_key}}</p>
+    <p class="font-sm">FECHA Y HORA DE AUTORIZACIÓN: {{authorization_datetime}}</p>
+    <p class="font-sm">AMBIENTE: {{enviroment}}</p>
+    <P class="font-sm">EMISIÓN: NORMAL</P>
+</div>
+<div class="section3 border rounded">
+    <table class="client-data">
+        <tbody>
+            <tr>
+                <td>Razón Social:</td>
+                <td>{{social_reason}}</td>
+            </tr>
+            <tr>
+                <td>IDENTIFICACIÓN:</td>
+                <td>{{identification}}</td>
+            </tr>
+            <tr>
+                <td>FECHA:</td>
+                <td>{{issuance_date}}</td>
+            </tr>
+            <tr>
+                <td>DIRECCIÓN:</td>
+                <td>{{client_address}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<table class="details border">
+    <thead>
+        <tr>
+            <th>Cod. Principal</th>
+            <th>Cod. Auxiliar</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Detalle adicional</th>
+            <th>Precio Unitario</th>
+            <th>Descuento</th>
+            <th>Precio Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{details}}
+    </tbody>
+</table>
+<div class="section5">
+    <table>
+        <tbody>
+            <tr>
+                <td class="label">Subtotal 15%</td>
+                <td>{{subtotal_15}}</td>
+            </tr>
+            <tr>
+                <td class="label">Subtotal 0%</td>
+                <td>{{subtotal_0}}</td>
+            </tr>
+            <tr>
+                <td class="label">Subtotal No Objeto de IVA</td>
+                <td>{{subtotal_no_vat}}</td>
+            </tr>
+            <tr>
+                <td class="label">Subtotal Exento de IVA</td>
+                <td>{{subtotal_vat_exempt}}</td>
+            </tr>
+            <tr>
+                <td class="label">Subtotal Sin Impuestos</td>
+                <td>{{subtotal_without_tax}}</td>
+            </tr>
+            <tr>
+                <td class="label">Total Descuento</td>
+                <td>{{total_discount}}</td>
+            </tr>
+            <tr>
+                <td class="label">IVA 15%</td>
+                <td>{{vat_15}}</td>
+            </tr>
+            <tr>
+                <td class="label">Valor Total</td>
+                <td>{{total}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="additional-info border">
+    <div class="header">
+        Información adicional
+    </div>
+    <div class="content"></div>
+</div>
+<table class="paymethods">
+    <thead>
+        <tr>
+            <th>Froma de pago</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{pay_method}}</td>
+            <td>{{pay_value}}</td>
+        </tr>
+    </tbody>
+</table>

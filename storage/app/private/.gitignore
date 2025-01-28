@@ -1,2 +1,4 @@
 *
 !.gitignore
+!invoice_template.xml
+!invoice_ride.html

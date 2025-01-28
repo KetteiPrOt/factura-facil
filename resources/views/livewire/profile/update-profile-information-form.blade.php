@@ -51,7 +51,7 @@ new class extends Component
                 Rule::unique('users', 'ruc')->ignore(Auth::user()->id)
             ],
             'matrix_address' => 'required|string|max:255',
-            'logo' => 'nullable|image|max:1024|dimensions:ratio=1/1'
+            'logo' => 'nullable|file|mimes:jpg,bmp,png|max:1024|dimensions:ratio=1/1'
         ]);
 
         if ($this->logo) {

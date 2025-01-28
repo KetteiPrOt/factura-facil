@@ -8,6 +8,7 @@ use App\Livewire\Persons\PersonIndex;
 use App\Livewire\Products\ProductIndex;
 use App\Livewire\Receipts\Invoices\InvoiceCreate;
 use App\Livewire\Receipts\Invoices\InvoiceIndex;
+use App\Http\Controllers\Receipts\Invoices\DownloadPdfController as InvoiceDownloadController;
 
 Route::get('/', fn() => redirect()->route('login'));
 
@@ -28,3 +29,4 @@ Route::middleware('auth')->get('/establecimientos/{establishment}', Establishmen
 Route::middleware('auth')->get('/logo', [ProfileController::class, 'logo'])->name('profile.logo');
 Route::middleware('auth')->get('/facturar', InvoiceCreate::class)->name('invoices.create');
 Route::middleware('auth')->get('/comprobantes', InvoiceIndex::class)->name('invoices.index');
+Route::middleware('auth')->get('/comprobantes/descargar/{receipt}', InvoiceDownloadController::class)->name('invoices.download');
