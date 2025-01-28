@@ -14,6 +14,7 @@ class Receipt extends Model
         'number',
         'status',
         'content',
+        'client_email',
         'user_id',
         'receipt_type_id'
     ];

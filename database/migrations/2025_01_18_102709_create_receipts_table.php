@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('number', 17);
             $table->string('status', 50);
             $table->text('content');
+            $table->string('client_email', 255)->nullable();
             $table->timestamps();
 
             // Foreign Keys

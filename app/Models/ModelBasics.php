@@ -12,9 +12,8 @@ trait ModelBasics
     public function belongsToMe(Model $model, string $relationship): bool
     {
         $myModels = $this->{$relationship};
-        if( ! $myModels->contains($model) ){
-            return false;
-        }
-        return true;
+        return $myModels->contains(function (Model $value, int $key) use ($model) {
+            return $value->id == $model->id;
+        });
     }
 }

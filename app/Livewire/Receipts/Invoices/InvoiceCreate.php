@@ -62,6 +62,7 @@ class InvoiceCreate extends Component
                 . '-' . $builder->sequential, // 001-001-000000001
             'status' => $status,
             'content' => $signed,
+            'client_email' => $validated['email'] ?? null,
             'user_id' => $user->id,
             'receipt_type_id' => ReceiptType::where('name', 'FACTURA')->first()->id
         ]);

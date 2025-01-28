@@ -25,8 +25,10 @@ class IssuancePointInput extends Component
         $establishment = Establishment::find($establishmentId);
         if($establishment){
             $user = User::find(Auth::user()->id);
-            if($user->belongsToMe($establishment, 'establishments'))
+            if($user->belongsToMe($establishment, 'establishments')){
                 $this->establishment_id = $establishmentId;
+                $this->value = '';
+            }
         }
     }
 

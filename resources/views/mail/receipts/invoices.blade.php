@@ -1,0 +1,1 @@
+<p>Reciba su factura</p>

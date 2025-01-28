@@ -11,7 +11,6 @@ use App\Rules\Model\BelongsTo;
 use App\Rules\Model\BelongsToUser;
 use App\Rules\String\ExactSizes;
 use App\Rules\String\NumericDigits;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class StoreForm extends Form

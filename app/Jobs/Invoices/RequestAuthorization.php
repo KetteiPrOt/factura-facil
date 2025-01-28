@@ -2,10 +2,12 @@
 
 namespace App\Jobs\Invoices;
 
+use App\Mail\Receipts\Invoices\Mail as InvoiceMail;
 use App\Models\Receipts\Receipt;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Mail;
 use SoapClient;
 
 class RequestAuthorization implements ShouldQueue
@@ -30,7 +32,6 @@ class RequestAuthorization implements ShouldQueue
             $response = $client->autorizacionComprobante([
                 'claveAccesoComprobante' => $invoice->access_key
             ]);
-            dump($response);
             $status = $this->extractStatus($response);
             if($status == 'AUTORIZADO'){
                 $invoice->status = 'Autorizada.';
@@ -43,6 +44,10 @@ class RequestAuthorization implements ShouldQueue
             }
         }catch(Exception $e){}
         $invoice->save();
+
+        if($invoice->client_email)
+            Mail::to($invoice->client_email)
+                ->send(new InvoiceMail($invoice));
     }
     
     private function extractStatus($response)
