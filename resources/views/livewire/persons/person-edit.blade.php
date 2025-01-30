@@ -6,7 +6,6 @@
         <x-text-input
             wire:model="form.identification"
             id="identificationEditInput"
-            x-on:open-modal.window="$el.value = ''"
             required
             minlength="10"
             maxlength="13"
@@ -23,7 +22,6 @@
         <x-text-input
             wire:model="form.social_reason"
             id="socialReasonEditInput"
-            x-on:open-modal.window="$el.value = ''"
             required
             maxlength="255"
             class="w-full"
@@ -40,7 +38,6 @@
             type="email"
             wire:model="form.email"
             id="emailEditInput"
-            x-on:open-modal.window="$el.value = ''"
             required
             maxlength="255"
             class="w-full"
@@ -55,7 +52,6 @@
         </x-input-label>
         <x-select-input
             wire:model="form.identification_type_id"
-            x-on:open-modal.window="$el.value = ''"
             id="identificationTypeEditInput"
             class="w-full" required
         >
@@ -77,7 +73,6 @@
         <x-text-input
             wire:model="form.phone_number"
             id="phoneNumberEditInput"
-            x-on:open-modal.window="$el.value = ''"
             minlength="10"
             maxlength="10"
             class="w-full"
@@ -93,7 +88,6 @@
         <x-text-input
             wire:model="form.address"
             id="addressEditInput"
-            x-on:open-modal.window="$el.value = ''"
             maxlength="255"
             class="w-full"
         />

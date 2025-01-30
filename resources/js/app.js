@@ -1,8 +1,4 @@
 import './bootstrap';
-import {
-    Collapse,
-    initTWE,
-} from "tw-elements";
 import invoiceComponent from './components/invoice-component';
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 
@@ -13,5 +9,3 @@ import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.e
 Alpine.data('InvoiceComponent', invoiceComponent);
  
 Livewire.start()
-
-initTWE({ Collapse });

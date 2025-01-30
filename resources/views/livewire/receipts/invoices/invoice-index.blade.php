@@ -12,6 +12,7 @@
                     </x-text.label>
                 </div>
 
+                @assets @vite(['resources/js/tw-elements/collapse.js']) @endassets
                 <div>
                     <div id="filtersAccordion">
                         <div class="rounded-t-lg rounded-b-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-gray-800">

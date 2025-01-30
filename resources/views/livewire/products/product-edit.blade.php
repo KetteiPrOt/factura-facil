@@ -5,7 +5,6 @@
         </x-input-label>
         <x-text-input
             wire:model="form.code"
-            x-on:open-modal.window="$el.value = ''"
             id="codeEditInput"
             required
             maxlength="25"
@@ -21,7 +20,6 @@
         </x-input-label>
         <x-text-input
             wire:model="form.name"
-            x-on:open-modal.window="$el.value = ''"
             id="nameEditInput"
             required
             maxlength="255"
@@ -39,7 +37,6 @@
             $<x-text-input
                 type="number"
                 wire:model="form.price"
-                x-on:open-modal.window="$el.value = ''"
                 id="priceEditInput"
                 min="0.01"
                 max="999999.99"
@@ -59,7 +56,6 @@
         </x-input-label>
         <x-text-input
             wire:model="form.additional_info"
-            x-on:open-modal.window="$el.value = ''"
             id="additionalInfoEditInput"
             maxlength="255"
             class="w-full"
@@ -74,7 +70,6 @@
         </x-input-label>
         <x-select-input
             wire:model="form.vat_rate_id"
-            x-on:open-modal.window="$el.value = ''"
             id="vatRateEditInput" class="w-full" required
         >
             <option>Seleccione</option>
